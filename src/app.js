@@ -285,7 +285,6 @@ function pushWaveLog(canceled){
     canceled:!!canceled,
     canceledAt:canceled?Date.now():null,
     rallyWait:rallyWait(),
-    appVersion:APP_VERSION,
     cities:cards.map(c=>({
       name:c.name,travel:c.travel,type:c.type,lead:!!c.lead,captain:!!c.captain,
       counterId:c.counterId,impactOff:impactOffsetFor(c),sendAt:c.sendAt
@@ -603,9 +602,8 @@ function logsToMarkdown(){
   S.logs.forEach(l=>{
     const when=l.canceled?(l.canceledAt||l.hitTime):l.hitTime;
     const status=l.canceled?'Canceled':'Hit';
-    const ver=l.appVersion?` · app v${l.appVersion}`:'';
     md+=`## ${l.castle} — Wave ${l.wave}${l.canceled?' (Canceled)':''}\n\n`;
-    md+=`**${status}** ${fmtDate(when)}${ver}\n\n`;
+    md+=`**${status}** ${fmtDate(when)}\n\n`;
     l.cities.forEach(c=>{md+=`- ${logCityLineText(c,l.rallyWait)}\n`;});
     md+='\n';
   });
